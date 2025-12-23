@@ -12,8 +12,8 @@ BEARER_TOKEN = os.getenv('BEARER_TOKEN')
 
 # For create_excel():
 MY_TIMEZONE = 'US/Central'
-WORKBOOK_NAME = 'slu_clan_members.xlsx'
-WORKSHEET_NAME = 'St Louis United Clan'
+WORKBOOK_NAME = os.getenv('WORKBOOK_NAME')
+WORKSHEET_NAME = os.getenv('WORKSHEET_NAME')
 
 # For upload_discord():
 MESSAGE_CONTENT = 'Latest stats attached.'
