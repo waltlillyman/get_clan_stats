@@ -1,0 +1,21 @@
+# Sensitive configuration
+.env
+.env.local
+
+# Generated files
+*.xlsx
+__pycache__/
+*.pyc
+.pytest_cache/
+.coverage
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db

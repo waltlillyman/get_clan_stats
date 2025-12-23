@@ -1,0 +1,12 @@
+version: '3.7'
+
+services:
+  get-clan-stats:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: get-clan-stats
+    environment:
+      BEARER_TOKEN: 
+      WEBHOOK_URL: 
+      CLAN_TAG: 
