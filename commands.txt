@@ -1,33 +1,33 @@
 # 5/22/24: Fetch clan stats from Clash Royale API and write as Excel to Discord channel.
-The swagpi guest has a cron job that runs a python script in a container.
+The Debian VM guest has a cron job that runs a python script in a container.
 
-ssh swagpi
+ssh <debian-vm-host>
 sudo -i
 cd /mnt/get_clan_stats
-root@swagpi:/mnt/get_clan_stats# 
+root@debian-vm:/mnt/get_clan_stats# 
 
 docker image ls && docker container ls
 docker system prune --force
 
 # Build the image:
-docker build -t get_clan_stats --progress=plain .
+docker-compose build
 
 # Clean up, but don't delete danglers:
 docker system prune --force
 
 # Run one time now, deleting container upon exit:
-docker run --rm get_clan_stats
+docker-compose run --rm get-clan-stats
 
 # Put its invocation into the crontab file for root:
 crontab -e
 # 5/22/24: Write clan stats to Discord:
-23 6,18 * * * /usr/bin/docker run --rm get_clan_stats >/dev/null 2>&1
+23 6,18 * * * cd /mnt/get_clan_stats && /usr/bin/docker-compose run --rm get-clan-stats >/dev/null 2>&1
 
 less /var/log/syslog
 
 Run interactively while debugging:
-root@swagpi:/mnt/get_clan_stats# 
-docker system prune --force && docker build -t get_clan_stats --progress=plain . && /usr/bin/docker run --rm get_clan_stats
+root@debian-vm:/mnt/get_clan_stats# 
+docker system prune --force && docker-compose build && docker-compose run --rm get-clan-stats
 
-# From MacBook, back up the files from swagpi to OneDrive, preserving timestamps:
-$ scp -p walt@swagpi:"/mnt/get_clan_stats/*" ~/OneDrive/Documents/AppDev/Supercell/Clash\ Royale/working
+# From MacBook, back up the files from Debian VM guest to OneDrive, preserving timestamps:
+$ scp -p walt@<debian-vm-host>:"/mnt/get_clan_stats/*" ~/OneDrive/Documents/AppDev/Supercell/Clash\ Royale/working
